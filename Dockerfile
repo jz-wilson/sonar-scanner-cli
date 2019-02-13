@@ -8,7 +8,10 @@ RUN apk update && apk add --no-cache curl git python3 nodejs && \
     curl --insecure -o ./sonarscanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
     unzip sonarscanner.zip && rm sonarscanner.zip && \
     rm sonar-scanner-${SONAR_SCANNER_VERSION}-linux/jre -rf && \
-    sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner
+    sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner && \
+    mkdir /code
+
+WORKDIR /code
 
 # Install Plugins
 RUN npm install eslint-plugin-sonarjs eslint -g
