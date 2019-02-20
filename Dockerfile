@@ -4,8 +4,8 @@ ENV SONAR_SCANNER_VERSION 3.3.0.1492
 ENV SONAR_RUNNER_HOME=/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 ENV PATH $PATH:/${SONAR_RUNNER_HOME}/bin
 
-RUN apk update && apk add --no-cache unzip curl git python3 python3-dev nodejs nodejs-npm grep sed bash php7 alpine-sdk && \
-    pip3 install --upgrade pip && pip3 install pylint setuptools && \
+RUN apk update && apk add --no-cache unzip curl git openssl-dev libffi-dev musl-dev python3 python3-dev nodejs nodejs-npm grep sed bash php7 alpine-sdk && \
+    pip3 install --upgrade pip && pip3 install pylint setuptools ansible-lint && \
     curl \
         --insecure \
         -o ./sonarscanner.zip \
