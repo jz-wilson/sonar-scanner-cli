@@ -1,3 +1,5 @@
+FROM koalaman/shellcheck:stable as shellcheck
+
 FROM openjdk:8-alpine
 
 ENV SONAR_SCANNER_VERSION 3.3.0.1492
@@ -5,7 +7,7 @@ ENV SONAR_RUNNER_HOME=/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 ENV PATH $PATH:/${SONAR_RUNNER_HOME}/bin
 
 RUN apk update && apk add --no-cache unzip curl git openssl-dev libffi-dev musl-dev python3 python3-dev nodejs nodejs-npm grep sed bash php7 alpine-sdk && \
-    pip3 install --upgrade pip && pip3 install pylint setuptools ansible-lint && \
+    pip3 install --upgrade pip && pip3 install pylint setuptools && \
     curl \
         --insecure \
         -o ./sonarscanner.zip \
@@ -18,5 +20,6 @@ RUN apk update && apk add --no-cache unzip curl git openssl-dev libffi-dev musl-
 WORKDIR /code
 
 # Install Plugins
-RUN npm install eslint-plugin-sonarjs eslint -g
+RUN npm install eslint-plugin-sonarjs eslint -g && pip3 install ansible-lint
+COPY --from=shellcheck /bin/shellcheck /bin/shellcheck
 CMD sonar-scanner
