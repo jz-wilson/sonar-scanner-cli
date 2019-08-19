@@ -2,7 +2,7 @@ FROM koalaman/shellcheck:stable as shellcheck
 
 FROM openjdk:8-alpine
 
-ENV SONAR_SCANNER_VERSION 3.3.0.1492
+ENV SONAR_SCANNER_VERSION 4.0.0.1744
 ENV SONAR_RUNNER_HOME=/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 ENV PATH $PATH:/${SONAR_RUNNER_HOME}/bin
 
